@@ -1,0 +1,102 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ALLOWED_HOSTS	../src/beepbeep/settings/base.py	/^ALLOWED_HOSTS = []$/;"	kind:variable	line:27
+ALLOWED_HOSTS	../src/beepbeep/settings/local.py	/^ALLOWED_HOSTS = []$/;"	kind:variable	line:28
+ALLOWED_HOSTS	../src/beepbeep/settings/production.py	/^ALLOWED_HOSTS = []$/;"	kind:variable	line:27
+AUTH_PASSWORD_VALIDATORS	../src/beepbeep/settings/base.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:86
+AUTH_PASSWORD_VALIDATORS	../src/beepbeep/settings/local.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:87
+AUTH_PASSWORD_VALIDATORS	../src/beepbeep/settings/production.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:86
+AppConfig	../src/beeps/apps.py	/^from django.apps import AppConfig$/;"	kind:namespace	line:1
+BASE_DIR	../src/beepbeep/settings/base.py	/^BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))$/;"	kind:variable	line:16
+BASE_DIR	../src/beepbeep/settings/local.py	/^BASE_DIR = os.path.dirname(os.path.dirname($/;"	kind:variable	line:16
+BASE_DIR	../src/beepbeep/settings/production.py	/^BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))$/;"	kind:variable	line:16
+BeepsConfig	../src/beeps/apps.py	/^class BeepsConfig(AppConfig):$/;"	kind:class	line:4
+DATABASES	../src/beepbeep/settings/base.py	/^DATABASES = {$/;"	kind:variable	line:75
+DATABASES	../src/beepbeep/settings/local.py	/^DATABASES = {$/;"	kind:variable	line:76
+DATABASES	../src/beepbeep/settings/production.py	/^DATABASES = {$/;"	kind:variable	line:75
+DEBUG	../src/beepbeep/settings/base.py	/^DEBUG = True$/;"	kind:variable	line:25
+DEBUG	../src/beepbeep/settings/local.py	/^DEBUG = True$/;"	kind:variable	line:26
+DEBUG	../src/beepbeep/settings/production.py	/^DEBUG = False$/;"	kind:variable	line:25
+INSTALLED_APPS	../src/beepbeep/settings/base.py	/^INSTALLED_APPS = [$/;"	kind:variable	line:32
+INSTALLED_APPS	../src/beepbeep/settings/local.py	/^INSTALLED_APPS = [$/;"	kind:variable	line:33
+INSTALLED_APPS	../src/beepbeep/settings/production.py	/^INSTALLED_APPS = [$/;"	kind:variable	line:32
+LANGUAGE_CODE	../src/beepbeep/settings/base.py	/^LANGUAGE_CODE = 'en-us'$/;"	kind:variable	line:105
+LANGUAGE_CODE	../src/beepbeep/settings/local.py	/^LANGUAGE_CODE = 'en-us'$/;"	kind:variable	line:106
+LANGUAGE_CODE	../src/beepbeep/settings/production.py	/^LANGUAGE_CODE = 'en-us'$/;"	kind:variable	line:105
+MIDDLEWARE	../src/beepbeep/settings/base.py	/^MIDDLEWARE = [$/;"	kind:variable	line:41
+MIDDLEWARE	../src/beepbeep/settings/local.py	/^MIDDLEWARE = [$/;"	kind:variable	line:42
+MIDDLEWARE	../src/beepbeep/settings/production.py	/^MIDDLEWARE = [$/;"	kind:variable	line:41
+ROOT_URLCONF	../src/beepbeep/settings/base.py	/^ROOT_URLCONF = 'beepbeep.urls'$/;"	kind:variable	line:51
+ROOT_URLCONF	../src/beepbeep/settings/local.py	/^ROOT_URLCONF = 'beepbeep.urls'$/;"	kind:variable	line:52
+ROOT_URLCONF	../src/beepbeep/settings/production.py	/^ROOT_URLCONF = 'beepbeep.urls'$/;"	kind:variable	line:51
+SECRET_KEY	../src/beepbeep/settings/base.py	/^SECRET_KEY = 'fwef1(3fr7*vd^dej-%1xl5e1!brha#q&i-qy4q7$5f!93x_(7'$/;"	kind:variable	line:22
+SECRET_KEY	../src/beepbeep/settings/local.py	/^SECRET_KEY = 'fwef1(3fr7*vd^dej-%1xl5e1!brha#q&i-qy4q7$5f!93x_(7'$/;"	kind:variable	line:23
+SECRET_KEY	../src/beepbeep/settings/production.py	/^SECRET_KEY = 'fwef1(3fr7*vd^dej-%1xl5e1!brha#q&i-qy4q7$5f!93x_(7'$/;"	kind:variable	line:22
+STATICFILES_DIRS	../src/beepbeep/settings/local.py	/^STATICFILES_DIRS = [$/;"	kind:variable	line:122
+STATIC_ROOT	../src/beepbeep/settings/local.py	/^STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static-serve")$/;"	kind:variable	line:133
+STATIC_URL	../src/beepbeep/settings/base.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:119
+STATIC_URL	../src/beepbeep/settings/local.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:120
+STATIC_URL	../src/beepbeep/settings/production.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:119
+TEMPLATES	../src/beepbeep/settings/base.py	/^TEMPLATES = [$/;"	kind:variable	line:53
+TEMPLATES	../src/beepbeep/settings/local.py	/^TEMPLATES = [$/;"	kind:variable	line:54
+TEMPLATES	../src/beepbeep/settings/production.py	/^TEMPLATES = [$/;"	kind:variable	line:53
+TIME_ZONE	../src/beepbeep/settings/base.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:107
+TIME_ZONE	../src/beepbeep/settings/local.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:108
+TIME_ZONE	../src/beepbeep/settings/production.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:107
+TestCase	../src/beeps/tests.py	/^from django.test import TestCase$/;"	kind:namespace	line:1
+USE_I18N	../src/beepbeep/settings/base.py	/^USE_I18N = True$/;"	kind:variable	line:109
+USE_I18N	../src/beepbeep/settings/local.py	/^USE_I18N = True$/;"	kind:variable	line:110
+USE_I18N	../src/beepbeep/settings/production.py	/^USE_I18N = True$/;"	kind:variable	line:109
+USE_L10N	../src/beepbeep/settings/base.py	/^USE_L10N = True$/;"	kind:variable	line:111
+USE_L10N	../src/beepbeep/settings/local.py	/^USE_L10N = True$/;"	kind:variable	line:112
+USE_L10N	../src/beepbeep/settings/production.py	/^USE_L10N = True$/;"	kind:variable	line:111
+USE_TZ	../src/beepbeep/settings/base.py	/^USE_TZ = True$/;"	kind:variable	line:113
+USE_TZ	../src/beepbeep/settings/local.py	/^USE_TZ = True$/;"	kind:variable	line:114
+USE_TZ	../src/beepbeep/settings/production.py	/^USE_TZ = True$/;"	kind:variable	line:113
+WSGI_APPLICATION	../src/beepbeep/settings/base.py	/^WSGI_APPLICATION = 'beepbeep.wsgi.application'$/;"	kind:variable	line:69
+WSGI_APPLICATION	../src/beepbeep/settings/local.py	/^WSGI_APPLICATION = 'beepbeep.wsgi.application'$/;"	kind:variable	line:70
+WSGI_APPLICATION	../src/beepbeep/settings/production.py	/^WSGI_APPLICATION = 'beepbeep.wsgi.application'$/;"	kind:variable	line:69
+__init__.py	../src/beepbeep/__init__.py	1;"	kind:file	line:1
+__init__.py	../src/beepbeep/settings/__init__.py	1;"	kind:file	line:1
+__init__.py	../src/beeps/__init__.py	1;"	kind:file	line:1
+__init__.py	../src/beeps/migrations/__init__.py	1;"	kind:file	line:1
+admin	../src/beepbeep/urls.py	/^from django.contrib import admin$/;"	kind:namespace	line:17
+admin	../src/beeps/admin.py	/^from django.contrib import admin$/;"	kind:namespace	line:1
+admin.py	../src/beeps/admin.py	1;"	kind:file	line:1
+application	../src/beepbeep/wsgi.py	/^application = get_wsgi_application()$/;"	kind:variable	line:16
+apps.py	../src/beeps/apps.py	1;"	kind:file	line:1
+base.py	../src/beepbeep/settings/base.py	1;"	kind:file	line:1
+django	../src/manage.py	/^            import django$/;"	kind:namespace	line:14
+django-admin.py	../bin/django-admin.py	1;"	kind:file	line:1
+execute_from_command_line	../src/manage.py	/^        from django.core.management import execute_from_command_line$/;"	kind:namespace	line:8
+get_wsgi_application	../src/beepbeep/wsgi.py	/^from django.core.wsgi import get_wsgi_application$/;"	kind:namespace	line:12
+home	../src/beepbeep/urls.py	/^from .views import home$/;"	kind:namespace	line:21
+home	../src/beepbeep/views.py	/^def home(request):$/;"	kind:function	line:3
+local.py	../src/beepbeep/settings/local.py	1;"	kind:file	line:1
+manage.py	../src/manage.py	1;"	kind:file	line:1
+management	../bin/django-admin.py	/^from django.core import management$/;"	kind:namespace	line:2
+models	../src/beeps/models.py	/^from django.db import models$/;"	kind:namespace	line:1
+models.py	../src/beeps/models.py	1;"	kind:file	line:1
+name	../src/beeps/apps.py	/^    name = 'beeps'$/;"	kind:variable	line:5
+os	../src/beepbeep/settings/base.py	/^import os$/;"	kind:namespace	line:13
+os	../src/beepbeep/settings/local.py	/^import os$/;"	kind:namespace	line:13
+os	../src/beepbeep/settings/production.py	/^import os$/;"	kind:namespace	line:13
+os	../src/beepbeep/wsgi.py	/^import os$/;"	kind:namespace	line:10
+os	../src/manage.py	/^import os$/;"	kind:namespace	line:2
+production.py	../src/beepbeep/settings/production.py	1;"	kind:file	line:1
+render	../src/beepbeep/views.py	/^from django.shortcuts import render$/;"	kind:namespace	line:2
+render	../src/beeps/views.py	/^from django.shortcuts import render$/;"	kind:namespace	line:1
+settings	../src/beepbeep/urls.py	/^from django.conf import settings$/;"	kind:namespace	line:19
+static	../src/beepbeep/urls.py	/^from django.conf.urls.static import static$/;"	kind:namespace	line:20
+sys	../src/manage.py	/^import sys$/;"	kind:namespace	line:3
+tests.py	../src/beeps/tests.py	1;"	kind:file	line:1
+url	../src/beepbeep/urls.py	/^from django.conf.urls import url$/;"	kind:namespace	line:16
+urlpatterns	../src/beepbeep/urls.py	/^urlpatterns = [$/;"	kind:variable	line:23
+urls.py	../src/beepbeep/urls.py	1;"	kind:file	line:1
+views.py	../src/beepbeep/views.py	1;"	kind:file	line:1
+views.py	../src/beeps/views.py	1;"	kind:file	line:1
+wsgi.py	../src/beepbeep/wsgi.py	1;"	kind:file	line:1
