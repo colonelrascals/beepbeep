@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, ListView
 from .models import Beep
 # Create your views here.
@@ -17,9 +17,10 @@ from .models import Beep
 class BeepDetailView(DetailView):
     template_name = "beeps/detail_view.html"
     queryset = Beep.objects.all()
-
     def get_object(self):
-        return Beep.objects.get(id=1)
+        pk = self.kwargs.get('pk')
+        obj = get_object_or_404(Beep, pk=pk)
+        return Beep.objects.get(id=pk)
 
 
 
