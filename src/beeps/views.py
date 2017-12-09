@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, CreateView
 from .models import Beep
+from .forms import BeepModelForm
+from .mixins import FormUserNeededMixin
 # Create your views here.
 
 # Create
@@ -13,6 +15,13 @@ from .models import Beep
 #List / Search
 
 #Retrieve
+
+class BeepCreateView(FormUserNeededMixin, CreateView):
+    form_class = BeepModelForm
+    template_name = 'beeps/create_view.html'
+    success_url = '/beep/create/'
+   
+
 
 class BeepDetailView(DetailView):
     template_name = "beeps/detail_view.html"

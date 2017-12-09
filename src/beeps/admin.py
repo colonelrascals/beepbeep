@@ -5,6 +5,8 @@ from .forms import BeepModelForm
 from .models import Beep
 
 class BeepModelAdmin(admin.ModelAdmin):
-    form = BeepModelForm
+    # form = BeepModelForm
+    class Meta:
+        model = Beep
 
 admin.site.register(Beep, BeepModelAdmin)
