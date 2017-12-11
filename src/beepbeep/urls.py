@@ -18,6 +18,7 @@ from django.contrib import admin
 
 from django.conf import settings
 from django.conf.urls.static import static
+from hashtags.views import HashTagView
 from beeps.views import BeepListView
 from .views import home
 
@@ -25,6 +26,7 @@ from .views import home
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', BeepListView.as_view(), name='home'),
+    url(r'^tags/(?P<hashtag>.*)/$', HashTagView.as_view(), name='hashtag'),
     url(r'^beep/', include('beeps.urls', namespace='beeps')),
     url(r'^api/beep/', include('beeps.api.urls', namespace='beeps-api')),
     url(r'^', include('accounts.urls', namespace='profiles')),

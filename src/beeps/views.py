@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import (
     DetailView,
     ListView,
@@ -12,6 +14,16 @@ from django.views.generic import (
 from .models import Beep
 from .forms import BeepModelForm
 from .mixins import FormUserNeededMixin, UserOwnerMixin
+
+
+class RebeepView(View):
+    def get(self, request, pk, *args, **kwargs):
+        beep = get_object_or_404(Beep, pk=pk)
+        if request.user.is_authenticated:
+            new_beep = Beep.objects.rebeep(request.user, beep)
+            return HttpResponseRedirect("/")
+        return HttpResponseRedirect(beep.get_absolute_url())
+
 
 class BeepCreateView(LoginRequiredMixin, FormUserNeededMixin, CreateView):
     form_class = BeepModelForm
