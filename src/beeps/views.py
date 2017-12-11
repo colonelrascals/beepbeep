@@ -12,18 +12,6 @@ from django.views.generic import (
 from .models import Beep
 from .forms import BeepModelForm
 from .mixins import FormUserNeededMixin, UserOwnerMixin
-# Create your views here.
-
-# Create
-
-
-# Update
-
-# Delete
-
-#List / Search
-
-# Retrieve
 
 class BeepCreateView(LoginRequiredMixin, FormUserNeededMixin, CreateView):
     form_class = BeepModelForm

@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', BeepListView.as_view(), name='home'),
     url(r'^beep/', include('beeps.urls', namespace='beeps')),
+    url(r'^api/beep/', include('beeps.api.urls', namespace='beeps-api')),
+
 ]
 
 if settings.DEBUG:

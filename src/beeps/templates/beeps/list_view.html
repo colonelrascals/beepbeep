@@ -1,45 +1,84 @@
 {% extends "base.html" %}
 
+<style>
+    #beep-container {}
+</style>
 
-{% block content %}
-   
-    <div class='row'>
-        <div class='col-sm-3 col-xs-12' style='background-color:red;'>
+{% block script %}
+<script>
+    function getParameterByName(name, url) {
+        if (!url) {
+            url = window.location.href;
+        }
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    $(document).ready(function () {
+        console.log("working");
+        var query = getParameterByName('q')
+        var beepList = [];
+        function parseBeeps() {
+            if (beepList === 0) {
+                $("#beep-container").text("No beeps currently found.")
+            } else {
+                // beeps exist, parse & display them
+                $.each(beepList, function (key, value) {
+                    var beepKey = key;
+                    console.log(key)
+                    console.log(value.user.username)
+                    var beepContent = value.content;
+                    var beepUser = value.user.username;
+                    $("#beep-container").append(
+                        "<div class=\"media\"><div class=\"media-body\">" + beepContent + "<br/> via " + beepUser + " | " + "<a href='#'>View</a>" + "</div></div><hr/>"
+                    )
+                })
+            }
+        }
+        $.ajax({
+            url: "/api/beep/",
+            data: {
+                "q": query
+            },
+            method: "GET",
+            success: function (data) {
+                console.log(data)
+                beepList = data
+                parseBeeps()
+
+            },
+            error: function (data) {
+                console.log("error")
+                console.log(data)
+            }
+        })
+    });
+</script> {% endblock script %} {% block content %}
+
+
+<div class='row'>
+    <div class='col-sm-3 col-xs-12' style='background-color:red;'>
         <h1>{{ request.user }}</h1>
-        </div>
-        <div class='col-sm-9 '>
-             {% if not request.GET.q %}
-                <div class=''>
-                    
-                    {% include "beeps/form.html" with form=create_form action_url=create_url btn_title='Beep' %}
-
-                </div>
-                <hr/>
-            {% endif %}
-        {% for object in object_list %}
-            <div class="media">
-                  <div class="media-left">
-                    <a href="#">
-                      {% if object.image %}
-                        <img class="media-object" src="..." alt="...">
-                     {% endif %}
-                    </a>
-                  </div>
-                  <div class="media-body">
-                    {{ object.content }}<br/>
-                    via {{ object.user }} | {{ object.timestamp|timesince }} ago | <a href='{{ object.get_absolute_url }}'>View</a>
-                  </div>
-            </div>
-            <hr/>
-        {% empty %}
-            {% if request.GET.q %}
-             <p>No tweets found.</p>
-            {% else %}
-            <p>No tweets yet.</p>
-            {% endif %}
-        {% endfor %}
-
-        </div>
     </div>
+    <div class='col-sm-9 '>
+        {% if not request.GET.q %}
+        <div class=''>
+
+            {% include "beeps/form.html" with form=create_form action_url=create_url btn_title='beep' %}
+
+        </div>
+        <hr/> {% endif %}
+
+        <div id='beep-container'>
+
+
+        </div>
+
+
+    </div>
+</div>
 
 {% endblock content %}
