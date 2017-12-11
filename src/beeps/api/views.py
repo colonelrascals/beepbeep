@@ -1,6 +1,7 @@
 from rest_framework import generics, permissions
 from django.db.models import Q
 from beeps.models import Beep
+from .pagination import StandardResultsPagination
 from .serializers import BeepModelSerializer
 
 
@@ -13,7 +14,7 @@ class BeepCreateView(generics.CreateAPIView):
 
 class BeepListAPIView(generics.ListAPIView):
     serializer_class = BeepModelSerializer
-
+    pagination_class = StandardResultsPagination
     def get_queryset(self, *args, **kwargs):
         qs = Beep.objects.all().order_by('-timestamp')
         query = self.request.GET.get('q', None)

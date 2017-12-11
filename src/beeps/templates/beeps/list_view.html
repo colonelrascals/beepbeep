@@ -46,16 +46,27 @@
                 })
             }
         }
-        function fetchBeeps() {
+        function fetchBeeps(url) {
             console.log("fetching...")
+            if(!url) {
+                fetchUrl = '/api/beep'
+            }
+            else{
+                fetchUrl = url
+            }
             $.ajax({
-                url: "/api/beep/",
+                url: fetchUrl,
                 data: {
                     "q": query
                 },
                 method: "GET",
                 success: function (data) {
-                    beepList = data
+                    beepList = data.results
+                    if (data.next){
+                        nextBeepUrl = data.next
+                      } else {
+                        $("#loadmore").css("display", "none")
+                      }
                     parseBeeps()
 
                 },
@@ -67,27 +78,63 @@
         }
         fetchBeeps()
 
+        $('#loadmore').bind('click', function(evt){
+            evt.preventDefault()
+            if (nextBeepUrl) {
+                fetchBeeps(nextBeepUrl)
+              }
+        })
+
+        var charsStart = 140;
+        var charsCurrent = 0;
+
+        $("#beep-form").append("<span id='beepCharsLeft'>" + charsStart + "</span>")
+        $("#beep-form textarea").keyup(function (event) {
+            var beepValue = $(this).val()
+            charsCurrent = charsStart - beepValue.length
+            var spanChars = $("#beepCharsLeft")
+            spanChars.text(charsCurrent)
+            if (charsCurrent > 0) {
+                // remove classes
+                spanChars.removeClass("grey-color")
+                spanChars.removeClass("red-color")
+            } else if (charsCurrent == 0) {
+                // add grey class
+                spanChars.removeClass("red-color")
+                spanChars.addClass("grey-color")
+            } else if (charsCurrent < 0) {
+                // add red class
+                spanChars.removeClass("grey-color")
+                spanChars.addClass("red-color")
+            }
+        })
+
         $("#beep-form").submit(function (event) {
             event.preventDefault()
             var this_ = $(this)
             var formData = this_.serialize()
-            $.ajax({
-                url: "/api/beep/create/",
-                data: formData,
-                method: "POST",
-                success: function (data) {
-                    console.log(data)
-                    this_.find('input[type=text], textarea').val('')
-                    
-                    attachBeeps(data, true)
+            if (charsCurrent >= 0) {
+                $.ajax({
+                    url: "/api/beep/create/",
+                    data: formData,
+                    method: "POST",
+                    success: function (data) {
+                        console.log(data)
+                        this_.find('input[type=text], textarea').val('')
 
-                },
-                error: function (data) {
-                    console.log("error")
-                    console.log(data.statusText)
-                    console.log(data.status)
-                }
-            })
+                        attachBeeps(data, true)
+
+                    },
+                    error: function (data) {
+                        console.log("error")
+                        console.log(data.statusText)
+                        console.log(data.status)
+                    }
+                })
+            } else {
+                console.log("Cannot send, beep too long.")
+            }
+
 
         })
     });
@@ -111,6 +158,7 @@
 
 
         </div>
+        <a href="#" id='loadmore'>Load More</a>
 
 
     </div>
