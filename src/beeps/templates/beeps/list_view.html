@@ -18,42 +18,77 @@
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
     $(document).ready(function () {
-        console.log("working");
         var query = getParameterByName('q')
         var beepList = [];
+
+        function attachBeeps(value, prepend) {
+            var dateDisplay = value.date_display
+            var beepContent = value.content;
+            var beepUser = value.user.username;
+            if (prepend == true) {
+                $("#beep-container").prepend(
+                    "<div class=\"media\"><div class=\"media-body\">" + beepContent + "<br/> via " + beepUser + " | " + dateDisplay + '|' + "<a href='#'>View</a>" + "</div></div><hr/>"
+                )
+            }
+            else {
+                $("#beep-container").append(
+                    "<div class=\"media\"><div class=\"media-body\">" + beepContent + "<br/> via " + beepUser + " | " + dateDisplay + '|' + "<a href='#'>View</a>" + "</div></div><hr/>"
+                )
+            }
+        }
         function parseBeeps() {
-            if (beepList === 0) {
+            if (beepList == 0) {
                 $("#beep-container").text("No beeps currently found.")
             } else {
                 // beeps exist, parse & display them
                 $.each(beepList, function (key, value) {
-                    var beepKey = key;
-                    console.log(key)
-                    console.log(value.user.username)
-                    var beepContent = value.content;
-                    var beepUser = value.user.username;
-                    $("#beep-container").append(
-                        "<div class=\"media\"><div class=\"media-body\">" + beepContent + "<br/> via " + beepUser + " | " + "<a href='#'>View</a>" + "</div></div><hr/>"
-                    )
+                    attachBeeps(value)
                 })
             }
         }
-        $.ajax({
-            url: "/api/beep/",
-            data: {
-                "q": query
-            },
-            method: "GET",
-            success: function (data) {
-                console.log(data)
-                beepList = data
-                parseBeeps()
+        function fetchBeeps() {
+            console.log("fetching...")
+            $.ajax({
+                url: "/api/beep/",
+                data: {
+                    "q": query
+                },
+                method: "GET",
+                success: function (data) {
+                    beepList = data
+                    parseBeeps()
 
-            },
-            error: function (data) {
-                console.log("error")
-                console.log(data)
-            }
+                },
+                error: function (data) {
+                    console.log("error")
+                    console.log(data)
+                }
+            })
+        }
+        fetchBeeps()
+
+        $("#beep-form").submit(function (event) {
+            event.preventDefault()
+            var this_ = $(this)
+            var formData = this_.serialize()
+            $.ajax({
+                url: "/api/beep/create/",
+                data: formData,
+                method: "POST",
+                success: function (data) {
+                    console.log(data)
+                    this_.find('input[type=text], textarea').val('')
+                    
+                    attachBeeps(data, true)
+
+                },
+                error: function (data) {
+                    console.log("error")
+                    console.log(data.statusText)
+                    console.log(data.status)
+                }
+            })
+
         })
     });
 </script> {% endblock script %} {% block content %}
@@ -67,7 +102,7 @@
         {% if not request.GET.q %}
         <div class=''>
 
-            {% include "beeps/form.html" with form=create_form action_url=create_url btn_title='beep' %}
+            {% include "beeps/form.html" with form=create_form action_url=create_url btn_title='Beep' form_id='beep-form' %}
 
         </div>
         <hr/> {% endif %}
