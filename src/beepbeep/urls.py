@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^$', BeepListView.as_view(), name='home'),
     url(r'^beep/', include('beeps.urls', namespace='beeps')),
     url(r'^api/beep/', include('beeps.api.urls', namespace='beeps-api')),
-
+    url(r'^', include('accounts.urls', namespace='profiles')),
 ]
 
 if settings.DEBUG:

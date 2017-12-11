@@ -25,15 +25,12 @@
             var dateDisplay = value.date_display
             var beepContent = value.content;
             var beepUser = value.user.username;
+            var formattedHtml = "<div class=\"media\"><div class=\"media-body\">" + beepContent + "<br/> via <a href='" + value.user.url + "'>" + beepUser + "</a> | " + dateDisplay + " | " + "<a href='#'>View</a>" + "</div></div><hr/>"
             if (prepend == true) {
-                $("#beep-container").prepend(
-                    "<div class=\"media\"><div class=\"media-body\">" + beepContent + "<br/> via " + beepUser + " | " + dateDisplay + '|' + "<a href='#'>View</a>" + "</div></div><hr/>"
-                )
+                $("#beep-container").prepend(formattedHtml)
             }
             else {
-                $("#beep-container").append(
-                    "<div class=\"media\"><div class=\"media-body\">" + beepContent + "<br/> via " + beepUser + " | " + dateDisplay + '|' + "<a href='#'>View</a>" + "</div></div><hr/>"
-                )
+                $("#beep-container").append(formattedHtml)
             }
         }
         function parseBeeps() {
