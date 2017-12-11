@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 # Create your models here.
 
 
@@ -11,3 +12,6 @@ class Beep(models.Model):
 
     def __str__(self):
         return str(self.content)
+
+    def get_absolute_url(self):
+        return reverse('beep:detail', kwargs={'pk':self.pk})

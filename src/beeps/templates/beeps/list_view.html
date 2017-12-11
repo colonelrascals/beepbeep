@@ -1,7 +1,12 @@
+{% include 'beeps/search_form.html' %}<br>
 {% for object in object_list %}
 <p>{{ object.content }}<br/>
 {{ object.user }}<br/>
 {{ object.timestamp|timesince }} ago</p><br/><br/>
 {% empty %}
-<p>No tweets yet.</p>
+{% if request.GET.q%}
+    No beeps found.
+{% else %}
+<p>No beeps yet.</p>
+{% endif%}
 {% endfor %}

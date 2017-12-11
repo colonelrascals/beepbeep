@@ -27,7 +27,7 @@ from .mixins import FormUserNeededMixin, UserOwnerMixin
 class BeepCreateView(LoginRequiredMixin, FormUserNeededMixin, CreateView):
     form_class = BeepModelForm
     template_name = 'beeps/create_view.html'
-    success_url = '/beep/create/'
+    # success_url = '/beep/create/'
     login_url = '/admin/'
 
 
@@ -35,7 +35,6 @@ class BeepUpdateView(LoginRequiredMixin, UserOwnerMixin, UpdateView):
     from_class = BeepModelForm
     queryset = Beep.objects.all()
     template_name = 'beeps/update_view.html'
-    success_url = '/beep'
     fields = '__all__'
 
 class BeepDeleteView(LoginRequiredMixin, DeleteView):
@@ -56,7 +55,13 @@ class BeepDetailView(DetailView):
 
 class BeepListView(ListView):
     template_name = "beeps/list_view.html"
-    queryset = Beep.objects.all()
+    def get_queryset(self, *args, **kwargs):
+        qs = Beep.objects.all()
+        query = self.request.GET.get('q', None)
+
+        if query is not None:
+            qs= qs.filter(content__icontains=query)
+        return qs
 
     def get_context_data(self, *args, **kwargs):
         context = super(BeepListView, self).get_context_data(*args, **kwargs)
