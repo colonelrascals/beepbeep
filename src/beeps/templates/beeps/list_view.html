@@ -20,7 +20,14 @@
     $(document).ready(function () {
         var query = getParameterByName('q')
         var beepList = [];
+        function updateHashLinks() {
+            $(".media-body").each(function (data) {
+                var hashtagRegex = /(^|\s)#([\w\d-]+)/g
+                var newText = $(this).html().replace(hashtagRegex, "$1<a href='/tags/$2/'>#$2</a>")
+                $(this).html(newText)
 
+            })
+        }
         function attachBeeps(value, prepend) {
             var dateDisplay = value.date_display
             var beepContent = value.content;
@@ -45,10 +52,10 @@
         }
         function fetchBeeps(url) {
             console.log("fetching...")
-            if(!url) {
+            if (!url) {
                 fetchUrl = '/api/beep'
             }
-            else{
+            else {
                 fetchUrl = url
             }
             $.ajax({
@@ -59,12 +66,13 @@
                 method: "GET",
                 success: function (data) {
                     beepList = data.results
-                    if (data.next){
+                    if (data.next) {
                         nextBeepUrl = data.next
-                      } else {
+                    } else {
                         $("#loadmore").css("display", "none")
-                      }
+                    }
                     parseBeeps()
+                    updateHashLinks()
 
                 },
                 error: function (data) {
@@ -75,11 +83,11 @@
         }
         fetchBeeps()
 
-        $('#loadmore').bind('click', function(evt){
+        $('#loadmore').bind('click', function (evt) {
             evt.preventDefault()
             if (nextBeepUrl) {
                 fetchBeeps(nextBeepUrl)
-              }
+            }
         })
 
         var charsStart = 140;
@@ -120,6 +128,7 @@
                         this_.find('input[type=text], textarea').val('')
 
                         attachBeeps(data, true)
+                        updateHashLinks()
 
                     },
                     error: function (data) {
