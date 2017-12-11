@@ -4,7 +4,18 @@
 {% block content %}
    
     <div class='row'>
-        <div class='col-sm-8 col-sm-offset-2'>
+        <div class='col-sm-3 col-xs-12' style='background-color:red;'>
+        <h1>{{ request.user }}</h1>
+        </div>
+        <div class='col-sm-9 '>
+             {% if not request.GET.q %}
+                <div class=''>
+                    
+                    {% include "beeps/form.html" with form=create_form action_url=create_url btn_title='Beep' %}
+
+                </div>
+                <hr/>
+            {% endif %}
         {% for object in object_list %}
             <div class="media">
                   <div class="media-left">
@@ -22,9 +33,9 @@
             <hr/>
         {% empty %}
             {% if request.GET.q %}
-             <p>No beeps found.</p>
+             <p>No tweets found.</p>
             {% else %}
-            <p>No beeps yet.</p>
+            <p>No tweets yet.</p>
             {% endif %}
         {% endfor %}
 

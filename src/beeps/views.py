@@ -3,10 +3,10 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import (
-    DetailView, 
-    ListView, 
-    CreateView, 
-    UpdateView, 
+    DetailView,
+    ListView,
+    CreateView,
+    UpdateView,
     DeleteView
 )
 from .models import Beep
@@ -38,6 +38,7 @@ class BeepUpdateView(LoginRequiredMixin, UserOwnerMixin, UpdateView):
     template_name = 'beeps/update_view.html'
     fields = '__all__'
 
+
 class BeepDeleteView(LoginRequiredMixin, DeleteView):
     model = Beep
     template_name = 'beeps/delete_confirm.html'
@@ -56,12 +57,13 @@ class BeepDetailView(DetailView):
 
 class BeepListView(ListView):
     template_name = "beeps/list_view.html"
+
     def get_queryset(self, *args, **kwargs):
         qs = Beep.objects.all()
         query = self.request.GET.get('q', None)
 
         if query is not None:
-            qs= qs.filter(
+            qs = qs.filter(
                 Q(content__icontains=query) |
                 Q(user__username__icontains=query)
             )
@@ -70,4 +72,6 @@ class BeepListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(BeepListView, self).get_context_data(*args, **kwargs)
+        context['create_form'] = BeepModelForm()
+        context['create_url'] = reverse_lazy('beep:create')
         return context
