@@ -1,5 +1,5 @@
 
-# Tweetme
+# BEEPBEEP
 A Twitter-like website built with Django.
 
 hosted [on Heroku](https://tweetme-20.herokuapp.com/)
