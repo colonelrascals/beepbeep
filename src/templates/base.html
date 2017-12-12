@@ -45,7 +45,7 @@
             var query = getParameterByName('q')
             var beepList = [];
             var initialURL = '/api/beep'
-            var beepContainer            
+            var beepContainer
 
             if (containerID){
                 beepContainer = $('#' + containerID)
@@ -54,6 +54,28 @@
                 beepContainer = $('#beep-container')
             }
             var initialURL = beepContainer.attr("data-url") || "/api/beep/"
+
+            $(document.body).on("click", ".beep-like", function(e){
+              e.preventDefault()
+              var this_ = $(this)
+              var beepId = this_.attr("data-id")
+              var likedUrl = '/api/beep/' + beepId + "/like/"
+              $.ajax({
+                method:"GET",
+                url: likedUrl,
+                success: function(data){
+                  if (data.liked){
+                    this_.text("Liked")
+                  } else {
+                    this_.text("Unliked")
+                  }
+                },
+                error: function(data){
+                  console.log("error")
+                  console.log(data)
+                }
+              })
+          })
             $(document.body).on("click", ".retweetBtn", function(e){
                 e.preventDefault()
                 console.log("clicked")
@@ -81,29 +103,39 @@
                     newText = currentHtml.replace(hashtagRegex, "$1<a href='/tags/$2/'>#$2</a>")
                     newText = newText.replace(usernameRegex, "$1 @<a href='/$2/'>$2</a>")
                     $(this).html(newText)
-    
+
                 })
             }
-            function attachBeeps(value, prepend, rebeep) {
-                var dateDisplay = value.date_display
-                var beepContent = value.content;
-                var beepUser = value.user.username;
-                var formattedHtml;
-                if (rebeep && value.parent){
-                  var mainBeep = value.parent
-                  console.log(mainBeep)
-                   formattedHtml = "<div class=\"media\"><div class=\"media-body\"><span class='grey-color'>Rebeep via " + beepUser +" on " + dateDisplay + "</span><br/>"+ mainBeep.content + "<br/> via <a href='" + mainBeep.user.url + "'>" + mainBeep.user.username + "</a> | " + mainBeep.date_display + " | " + "<a href='/beep/" + mainBeep.id + "'>View</a> | " + "<a class='retweetBtn' href='/beep/" + value.id + "/rebeep/'>Rebeep</a>" + "</div></div><hr/>"
-                } 
-                else {
-    
-                    formattedHtml = "<div class=\"media\">"+"<div class=\"media-body\">" + beepContent + "<br/> via <a href='" + value.url + "'>" + beepUser + "</a> | " + dateDisplay + " | " + "<a href='/beep/" + value.id + "'>View</a> | " + "<a class='retweetBtn' href='/beep/" + value.id + "/rebeep/'>Rebeep</a>" +  "</div></div><hr/>"
+            function formatTweet(tweetValue) {
+                var verb = 'Like'
+                if (tweetValue.did_like){
+                    verb = 'Unlike'
                 }
-                if (prepend == true) {
-                    beepContainer.prepend(formattedHtml)
+                var preContent;
+                var container;
+                var tweetContent;
+                console.log(tweetValue)
+                if (tweetValue.parent) {
+                  // there is a retwet
+                  tweetValue = tweetValue.parent
+                   preContent = "<span class='grey-color'>Rebeep via " + tweetValue.user.username +" on " + tweetValue.date_display + "</span><br/>"
                 }
-                else {
-                    beepContainer.append(formattedHtml)
+                tweetContent = tweetValue.content + "<br/> via <a href='" + tweetValue.user.url + "'>" + tweetValue.user.username + "</a> | " + tweetValue.date_display + " | " + "<a href='/beep/" + tweetValue.id + "'>View</a> | " + "<a class='retweetBtn' href='/beep/" + tweetValue.id + "/rebeep/'>Rebeep</a>" + " | <a href='#' class='beep-like' data-id=" + tweetValue.id + ">" + verb + "</a>"
+                if (preContent){
+                     container= "<div class=\"media\"><div class=\"media-body\">" + preContent + tweetContent + "</div></div><hr/>"
+                } else {
+                     container = "<div class=\"media\"><div class=\"media-body\">" + tweetContent + "</div></div><hr/>"
                 }
+
+                 return container
+            }
+            function attachBeeps(tweetValue, prepend, retweet){
+                tweetFormattedHtml = formatTweet(tweetValue)
+                if (prepend==true){
+                  beepContainer.prepend(tweetFormattedHtml)
+                } else {
+                  beepContainer.append(tweetFormattedHtml)
+               }
             }
             function parseBeeps() {
                 if (beepList == 0) {
@@ -113,10 +145,10 @@
                     $.each(beepList, function (key, value) {
                         if (value.parent){
                             attachBeeps(value, false, true)
-                            
+
                         }
                         attachBeeps(value)
-    
+
                     })
                 }
             }
@@ -142,7 +174,7 @@
                         }
                         parseBeeps()
                         updateHashLinks()
-    
+
                     },
                     error: function (data) {
                         console.log("error")
@@ -151,17 +183,17 @@
                 })
             }
             fetchBeeps()
-    
+
             $('#loadmore').bind('click', function (evt) {
                 evt.preventDefault()
                 if (nextBeepUrl) {
                     fetchBeeps(nextBeepUrl)
                 }
             })
-    
+
             var charsStart = 140;
             var charsCurrent = 0;
-    
+
             $("#beep-form").append("<span id='beepCharsLeft'>" + charsStart + "</span>")
             $("#beep-form textarea").keyup(function (event) {
                 var beepValue = $(this).val()
@@ -182,7 +214,7 @@
                     spanChars.addClass("red-color")
                 }
             })
-    
+
             $("#beep-form").submit(function (event) {
                 event.preventDefault()
                 var this_ = $(this)
@@ -195,10 +227,10 @@
                         success: function (data) {
                             console.log(data)
                             this_.find('input[type=text], textarea').val('')
-    
+
                             attachBeeps(data, true)
                             updateHashLinks()
-    
+
                         },
                         error: function (data) {
                             console.log("error")
@@ -209,8 +241,8 @@
                 } else {
                     console.log("Cannot send, beep too long.")
                 }
-    
-    
+
+
             })
 
     }
@@ -238,10 +270,10 @@
             searchQuery =  $(this).val()
             clearTimeout(typingTimer)
             typingTimer = setTimeout(doneSearchTyping, doneInterval)
-            
+
         })
          searchInput.keydown(function(event){
-            clearTimeout(typingTimer)  
+            clearTimeout(typingTimer)
         })
         function doneSearchTyping(){
           if (searchQuery){

@@ -55,6 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'beepbeep.urls'
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL=  '/'
 
 TEMPLATES = [
     {
@@ -138,4 +140,3 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static-serve")
 
 CRISPY_TEMPLATE_PACK  = 'bootstrap3'
-

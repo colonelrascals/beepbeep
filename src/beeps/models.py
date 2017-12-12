@@ -32,6 +32,15 @@ class BeepManager(models.Manager):
 
         return obj
 
+    def like_toggle(self, user, beep_obj):
+        if user in beep_obj.liked.all():
+            is_liked = False
+            beep_obj.liked.remove(user)
+        else:
+            is_liked = True
+            beep_obj.liked.add(user)
+        return is_liked
+
 
 class Beep(models.Model):
     parent = models.ForeignKey(
@@ -39,6 +48,7 @@ class Beep(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     content = models.CharField(max_length=140)
+    liked = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='liked')
     updated = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -74,4 +84,3 @@ def beep_save_receiver(sender, instance, created, *args, **kwargs):
 
 
 post_save.connect(beep_save_receiver, sender=Beep)
-

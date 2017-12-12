@@ -54,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'beepbeep.urls'
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL=  '/'
 
 TEMPLATES = [
     {
