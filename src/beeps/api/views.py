@@ -1,4 +1,6 @@
 from rest_framework import generics, permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from django.db.models import Q
 from beeps.models import Beep
 from .pagination import StandardResultsPagination
@@ -46,3 +48,18 @@ class SearchAPIView(generics.ListAPIView):
                 Q(user__username__icontains=query)
             )
         return qs
+
+
+class RebeepAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def get(self, request, pk, format=None):
+        beep_qs = Beep.objects.filter(pk=pk)
+        message = "Not allowed"
+        if beep_qs.exists() and beep_qs.count() == 1:
+            # if request.user.is_authenticated():
+            new_beep = Beep.objects.rebeep(request.user, beep_qs.first())
+            if new_beep is not None:
+                data = BeepModelSerializer(new_beep).data
+                return Response(data)
+            message = "Cannot rebeep the same in 1 day"
+        return Response({"message": message}, status=400)
